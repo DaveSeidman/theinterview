@@ -3,5 +3,5 @@
 dev:  
 `npm start`  
   
-build:
+build:  
 `npm run build`  
