@@ -1,0 +1,13 @@
+{
+  "hello": [ "hello-1" ],
+  "how_are_you": [ "how_are_you-1" ],
+  "name": [ "name-1" ],
+  "location": [ "location-1" ],
+  "school": [ "school-1", "school-2" ],
+  "degree": [ "degree-1", "degree-2" ],
+  "hobbies": [ "hobbies-1" ],
+  "position": [ "position-1" ],
+  "salary": [ "salary-1" ],
+  "availability": [ "availability-1" ],
+  "fallback": [ "fallback-1", "fallback-2" ]
+}
