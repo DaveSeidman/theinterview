@@ -1,68 +1,56 @@
 import './css/main.scss';
 
 const input = document.querySelector('.text');
-const sendBtn = document.querySelector('.send');
-const listen = document.querySelector('.listen');
 const result = document.querySelector('.result');
-
+const userVideo = document.querySelector('.user-video');
+const constraints = { audio: true, video: { width: 720, height: 1280 } };
 let recognition;
 
-const sendText = () => {
-  result.value = 'loading...';
-  fetch(`/apiai/nlp/${input.value}`)
+const sendText = (text) => {
+  result.value = 'sending text to api.ai';
+  fetch(`/apiai/nlp/${text}`)
     .then(response => response.json())
     .then((response) => {
-      console.log('response', response);
       result.value = response.action;
     });
 };
 
-const updateRec = () => {
-  listen.innerHTML = recognition ? 'Stop' : 'Speak';
-};
-
-const setInput = (text) => {
-  input.value = text;
-  sendText();
-};
-
-const stopRecognition = () => {
-  if (recognition) {
-    recognition.stop();
-    recognition = null;
-  }
-  updateRec();
-};
-
-const startRecognition = () => {
+const startRecognition = (cameraReady) => {
+  if(!cameraReady) 
+    return console.log('coudnt get webcam');
+    
   recognition = new webkitSpeechRecognition();
-  recognition.onstart = () => {
-    updateRec();
-  };
-  recognition.onresult = (event) => {
+  recognition.onresult = (e) => {
     let text = '';
-    for (let i = event.resultIndex; i < event.results.length; i += 1) {
-      text += event.results[i][0].transcript;
+    for (let i = e.resultIndex; i < e.results.length; i += 1) {
+      text += e.results[i][0].transcript;
     }
-
-    setInput(text);
-    stopRecognition();
+    input.value = text;
+    sendText(text);
   };
   recognition.onend = () => {
-    stopRecognition();
+      setTimeout(startRecognition(true), 500);
   };
   recognition.lang = 'en-US';
   recognition.start();
-};
+}
 
-const toggleListen = () => {
-  if (recognition) {
-    stopRecognition();
-  } else {
-    startRecognition();
-  }
-};
+const getCamera = () => {
+  return new Promise((resolve) => {
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then((stream) => {
+        userVideo.srcObject = stream;
+        userVideo.onloadedmetadata = () => { 
+          userVideo.play(); 
+          return resolve(true);
+        };
+        
+      })
+      .catch((err) => { 
+        console.log(`${err.name}: ${err.message}`); 
+        return resolve(false);
+      });
+    });
+}
 
-sendBtn.addEventListener('click', sendText);
-listen.addEventListener('click', toggleListen);
-input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendText(); });
+getCamera().then(startRecognition);
