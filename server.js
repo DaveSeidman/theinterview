@@ -5,6 +5,8 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.static('src/videos'));
+
 app.get('/apiai/nlp/:text', (req, res) => {
   const request = apiaiClient.textRequest(req.params.text, {
     sessionId: 'usesocketidhere',
