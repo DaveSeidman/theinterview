@@ -10,6 +10,12 @@ module.exports = {
     contentBase: './dist',
     proxy: {
       '/apiai': 'http://[::1]:8000',
+      '/videos/*': {
+        target: 'http://[::1]:8000',
+        pathRewrite: {
+          '/videos': '',
+        },
+      },
     },
   },
   plugins: [
