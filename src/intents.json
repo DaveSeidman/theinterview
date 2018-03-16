@@ -9,5 +9,6 @@
   "position": [ "position-1" ],
   "salary": [ "salary-1" ],
   "availability": [ "availability-1" ],
+  "frameworks": [ "school-1" ],
   "fallback": [ "fallback-1", "fallback-2" ]
 }

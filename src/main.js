@@ -47,7 +47,7 @@ const startListening = (cameraReady) => {
     getIntent(text).then(respondToUser);
   };
   recognition.onend = () => {
-    setTimeout(startListening(true), 500);
+    setTimeout(startListening(true), 250);
   };
   recognition.lang = 'en-US';
   recognition.start();
