@@ -2,15 +2,15 @@
 <html>
   <head>
     <meta http-equiv='Content-type' content='text/html; charset=utf-8'/>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
     <title>The Interview</title>
   </head>
     <body>
-  	<div>
-  		<input id='input' type='text' class='text'>
-      <button class='listen'>Record</button>
-      <button class='send'>Send</button>
-  		<br>Response<br> <textarea id='response' class='result' cols='40' rows='20'></textarea>
+  	<div class='wrap'>
+      <h1>Input</h1>
+  		<input type='text' class='speech' />
+      <h1>Response</h1>
+      <input type='text' class='intent' />
+      <video class='user-video' muted autoplay playsinline />
   	</div>
   </body>
 </html>
