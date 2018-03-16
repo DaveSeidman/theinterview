@@ -1,56 +1,78 @@
 import './css/main.scss';
 
-const input = document.querySelector('.text');
-const result = document.querySelector('.result');
+const speech = document.querySelector('.speech');
+const intent = document.querySelector('.intent');
+const myVideo = document.querySelector('.my-video');
 const userVideo = document.querySelector('.user-video');
 const constraints = { audio: true, video: { width: 720, height: 1280 } };
+const intents = require('./intents.json');
+
 let recognition;
 
-const sendText = (text) => {
-  result.value = 'sending text to api.ai';
+
+const getIntent = text => new Promise((resolve) => {
+  intent.value = 'sending speech to api.ai for analysis';
   fetch(`/apiai/nlp/${text}`)
     .then(response => response.json())
     .then((response) => {
-      result.value = response.action;
+      intent.value = response.action;
+      resolve(response.action);
     });
+});
+
+const random = array => array[Math.floor(Math.random() * array.length)];
+
+const playVideo = (video) => {
+  myVideo.src = `videos/${video}.mp4`;
 };
 
-const startRecognition = (cameraReady) => {
-  if(!cameraReady) 
-    return console.log('coudnt get webcam');
-    
+const respondToUser = (intent) => {
+  const userIntent = intents[intent];
+
+  if (!userIntent) return playVideo(intents.fallback);
+
+  return playVideo(random(userIntent));
+};
+
+const startListening = (cameraReady) => {
+  if (!cameraReady) { return console.log('coudnt get webcam'); }
+
   recognition = new webkitSpeechRecognition();
   recognition.onresult = (e) => {
     let text = '';
     for (let i = e.resultIndex; i < e.results.length; i += 1) {
       text += e.results[i][0].transcript;
     }
-    input.value = text;
-    sendText(text);
+    speech.value = text;
+    getIntent(text).then(respondToUser);
   };
   recognition.onend = () => {
-      setTimeout(startRecognition(true), 500);
+    setTimeout(startListening(true), 500);
   };
   recognition.lang = 'en-US';
   recognition.start();
-}
+};
 
-const getCamera = () => {
-  return new Promise((resolve) => {
-    navigator.mediaDevices.getUserMedia(constraints)
-      .then((stream) => {
-        userVideo.srcObject = stream;
-        userVideo.onloadedmetadata = () => { 
-          userVideo.play(); 
-          return resolve(true);
-        };
-        
-      })
-      .catch((err) => { 
-        console.log(`${err.name}: ${err.message}`); 
-        return resolve(false);
-      });
+const getCamera = () => new Promise((resolve) => {
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then((stream) => {
+      userVideo.srcObject = stream;
+      userVideo.onloadedmetadata = () => {
+        userVideo.play();
+        return resolve(true);
+      };
+    })
+    .catch((err) => {
+      console.log(`${err.name}: ${err.message}`);
+      return resolve(false);
     });
-}
+});
 
-getCamera().then(startRecognition);
+getCamera().then(startListening);
+
+const videoComplete = () => {
+  console.log('video ended');
+};
+
+playVideo('idle-1');
+myVideo.addEventListener('complete', videoComplete);
