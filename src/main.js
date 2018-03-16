@@ -2,8 +2,8 @@ import './css/main.scss';
 
 const speech = document.querySelector('.speech');
 const intent = document.querySelector('.intent');
-const myVideo = document.querySelector('.my-video');
-const userVideo = document.querySelector('.user-video');
+const myVideo = document.querySelector('.my-video > video');
+const userVideo = document.querySelector('.user-video > video');
 const constraints = { audio: true, video: { width: 720, height: 1280 } };
 const intents = require('./intents.json');
 
@@ -26,8 +26,8 @@ const playVideo = (video) => {
   myVideo.src = `videos/${video}.mp4`;
 };
 
-const respondToUser = (intent) => {
-  const userIntent = intents[intent];
+const respondToUser = (response) => {
+  const userIntent = intents[response];
 
   if (!userIntent) return playVideo(intents.fallback);
 
@@ -72,7 +72,8 @@ getCamera().then(startListening);
 
 const videoComplete = () => {
   console.log('video ended');
+  playVideo('idle-1');
 };
 
 playVideo('idle-1');
-myVideo.addEventListener('complete', videoComplete);
+myVideo.addEventListener('ended', videoComplete);
