@@ -1,14 +1,25 @@
 {
-  "hello": [ "hello-1" ],
-  "how_are_you": [ "how_are_you-1" ],
-  "name": [ "name-1" ],
-  "location": [ "location-1" ],
-  "school": [ "school-1" ],
-  "degree": [ "degree-1", "degree-2" ],
-  "hobbies": [ "hobbies-1" ],
-  "position": [ "position-1" ],
-  "salary": [ "salary-1" ],
-  "availability": [ "availability-1" ],
-  "frameworks": [ "school-1" ],
-  "fallback": [ "fallback-1", "fallback-2" ]
+  "start" : ["start-1", "start-2", "start-3", "start-4"],
+  "hello": [ "hello-1", "hello-2", "hello-3", "hello-4" ],
+  "goodbye": [ "goodbye-1", "goodbye-2", "goodbye-3", "goodbye-4" ],
+  "fallback" : ["fallback-1", "fallback-2", "fallback-3", "fallback-4" ],
+  "trouble" : [ "trouble-1", "trouble-2", "trouble-3", "trouble-4" ],
+  "insult" : [ "insult-1", "insult-2", "insult-3", "insult-4" ],
+  "feeling": ["feeling-1", "feeling-2", "feeling-3", "feeling-4" ],
+  "name" : ["name-1", "name-2", "name-3", "name-4"],
+  
+  "position": ["position-1", "position-2" ],
+  "salary": ["salary-1", "salary-2", "salary-3", "salary-4"],
+  "location" : [ "location-1", "location-2", "location-3", "location-4" ],
+  "availability": ["availability-1", "availability-2", "availability-3", "availability-4" ],
+  "school" : ["school-1", "school-2", "school-3", "school-4" ],
+  "degree" : ["degree-1", "degree-2", "degree-3", "degree-4" ],
+  "frameworks" : ["frameworks-1", "frameworks-2", "frameworks-3", "frameworks-4" ],
+
+  "hobbies": ["hobbies-1", "hobbies-2", "hobbies-3", "hobbies-4"],
+  "maker": ["maker-1", "maker-2", "maker-3", "maker-4"],
+  "height": ["height-1", "height-2" ],
+  "weight": ["weight-1", "weight-2", "weight-3"],
+  "wearing": ["wearing-1", "wearing-2" ],
+  "real" : ["are_you_real-1","are_you_real-2","are_you_real-3","are_you_real-4"]
 }
