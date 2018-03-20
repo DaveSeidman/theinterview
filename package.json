@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch server.js server.js & webpack-dev-server",
-    "build": "webpack"
+    "dev": "cd functions && npm run dev & webpack-dev-server",
+    "deploy" : "NODE_ENV=prod webpack && firebase deploy --only functions,hosting"
   },
   "author": "Dave Seidman",
   "license": "ISC",

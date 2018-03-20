@@ -11,7 +11,7 @@ module.exports = {
     proxy: {
       '/apiai': 'http://[::1]:8000',
       '/videos/*': {
-        target: 'http://[::1]:8000',
+        target: 'http://localhost:5000/the-interview-app/us-central1/api/',
         pathRewrite: {
           '/videos': '',
         },

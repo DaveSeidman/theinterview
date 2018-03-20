@@ -9,7 +9,10 @@ const intents = require('./intents.json');
 
 let recognition;
 
+// const url = process.env.NODE_ENV === 'dev' ? 'devlink' : 'prodlink';
+console.log(window.location.href.indexOf('localhost') > 0);
 
+// console.log('my env is', ENV);
 const getIntent = text => new Promise((resolve) => {
   intent.value = 'sending speech to api.ai for analysis';
   fetch(`/apiai/nlp/${text}`)
@@ -19,6 +22,8 @@ const getIntent = text => new Promise((resolve) => {
       resolve(response.action);
     });
 });
+
+getIntent('how are you today?');
 
 const random = array => array[Math.floor(Math.random() * array.length)];
 
@@ -75,5 +80,5 @@ const videoComplete = () => {
   playVideo('idle-1');
 };
 
-playVideo('idle-1');
+// playVideo('idle-1');
 myVideo.addEventListener('ended', videoComplete);
