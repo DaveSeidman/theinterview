@@ -26,7 +26,7 @@ const getIntent = text => new Promise((resolve) => {
     });
 });
 
-getIntent('how are you today?');
+getIntent('how are you today?').then(respondToUser);
 
 const random = array => array[Math.floor(Math.random() * array.length)];
 
