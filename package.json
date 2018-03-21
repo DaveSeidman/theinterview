@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cd functions && npm run dev & webpack-dev-server",
-    "deploy" : "NODE_ENV=prod webpack && firebase deploy --only functions,hosting"
+    "deploy": "NODE_ENV=prod webpack && firebase deploy --only functions,hosting"
   },
   "author": "Dave Seidman",
   "license": "ISC",
@@ -20,7 +20,6 @@
     "babel-eslint": "^8.2.2",
     "babel-loader": "^8.0.0-beta.2",
     "babel-preset-env": "^1.6.1",
-    "chalk": "^2.3.2",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.10",
     "eslint": "^4.18.2",

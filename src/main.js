@@ -9,13 +9,16 @@ const intents = require('./intents.json');
 
 let recognition;
 
-// const url = process.env.NODE_ENV === 'dev' ? 'devlink' : 'prodlink';
-console.log(window.location.href.indexOf('localhost') > 0);
+const env = window.location.href.indexOf('localhost') > 0 ? 'dev' : 'prod';
 
-// console.log('my env is', ENV);
+const nlpURL = env === 'dev'
+  ? 'http://localhost:5000/the-interview-app/us-central1/api/nlp'
+  : 'https://us-central1-the-interview-app.cloudfunctions.net/api/nlp';
+
+
 const getIntent = text => new Promise((resolve) => {
   intent.value = 'sending speech to api.ai for analysis';
-  fetch(`/apiai/nlp/${text}`)
+  fetch(`${nlpURL}/${text}`)
     .then(response => response.json())
     .then((response) => {
       intent.value = response.action;
